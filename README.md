@@ -13,6 +13,7 @@ A lightweight, browser console-based script that helps you efficiently clean up 
 ## ✨ Features
 
 - ✅ **Smart Filtering** - Keeps your N most recent conversations
+- ✅ **User Confirmation** - Requires explicit confirmation before deletion
 - ✅ **Automated Deletion** - Delete old conversations one by one
 - ✅ **Auto-Redirect** - Automatically navigates to messages list page
 - ✅ **Real-time Progress** - Live console logs with emoji indicators
@@ -84,8 +85,58 @@ Press `Enter` to run the script. You'll see colorful progress logs:
 
 ─────────────────────────────────────────────────────────
 
-🚀 Starting deletion process...
+⚠️  CONFIRMATION REQUIRED
 
+   You are about to DELETE 26 conversations.
+   This action is PERMANENT and CANNOT be undone!
+
+─────────────────────────────────────────────────────────
+```
+
+**Step 5: Confirm Deletion**
+
+A confirmation dialog will appear asking you to confirm the deletion:
+
+```
+⚠️ CONFIRM DELETION
+
+You are about to permanently delete 26 conversations.
+
+• Total conversations: 46
+• Will keep: 20 newest
+• Will delete: 26 oldest
+
+This action CANNOT be undone!
+
+Click OK to proceed, or Cancel to abort.
+```
+
+- Click **OK** to proceed with deletion
+- Click **Cancel** to abort (no conversations will be deleted)
+
+If you cancel, you'll see:
+
+```
+❌ Deletion cancelled by user.
+
+   No conversations were deleted.
+```
+
+If you confirm, deletion will begin:
+
+```
+✅ User confirmed. Proceeding with deletion...
+
+🚀 Starting deletion process...
+```
+
+**Step 6: Monitor Progress**
+
+The script will show real-time progress:
+
+![Tutorial Step 2](docs/tutorial_step_2.png)
+
+```
 🎯 Target: Position #21
    Name: "John Doe - Hey, how are you..."
    Progress: 0/26 deleted | 26 remaining
@@ -125,16 +176,11 @@ Press `Enter` to run the script. You'll see colorful progress logs:
 ─────────────────────────────────────────────────────────
 ```
 
-**Step 5: Wait for Completion**
+**Step 7: Completion**
 
-The script will continue until only your desired number of conversations remain:
+The script will finish and show final statistics:
 
 ![Tutorial Step 3](docs/tutorial_step_3.png)
-
-```
-✅ DONE! Only 20 conversations left (kept 20 newest)
-🎉 FINAL: Deleted 26 conversations, kept 20 newest!
-```
 
 ---
 
@@ -198,20 +244,31 @@ await wait(1000); // Confirmation wait (default: 1000ms)
 | `• To delete: 26`           | Number that will be deleted            |
 | `⚠️ Nothing to delete!`     | Total ≤ keep setting, no action needed |
 
+### Confirmation Messages
+
+| Message                                          | Meaning                                |
+| ------------------------------------------------ | -------------------------------------- |
+| `⚠️ CONFIRMATION REQUIRED`                       | User must confirm before deletion      |
+| `You are about to DELETE X conversations`        | Shows number to be deleted             |
+| `This action is PERMANENT and CANNOT be undone!` | Warning about permanence               |
+| `✅ User confirmed. Proceeding with deletion...` | User clicked OK, deletion starting     |
+| `❌ Deletion cancelled by user.`                 | User clicked Cancel, script aborted    |
+| `No conversations were deleted.`                 | Confirmation that abort was successful |
+
 ### Deletion Progress
 
-| Message                                | Meaning                                 |
-| -------------------------------------- | --------------------------------------- | ------------------------- |
-| `🎯 Target: Position #21`              | Current conversation being processed    |
-| `Name: "John Doe..."`                  | Conversation name (trimmed to 30 chars) |
-| `Progress: 5/26 deleted                | 21 remaining`                           | Detailed progress counter |
-| `⏳ Opening menu...`                   | Clicking "More" button                  |
-| `📋 Found 4 menu items`                | Menu options detected                   |
-| `✓ Found delete option: "Delete chat"` | Delete option located                   |
-| `⏳ Clicking delete...`                | Initiating deletion                     |
-| `📋 Found 3 dialog buttons`            | Confirmation dialog buttons             |
-| `✓ Confirming deletion...`             | Clicking confirm button                 |
-| `✅ SUCCESS! Deleted 5/26`             | Successful deletion                     |
+| Message                                  | Meaning                                 |
+| ---------------------------------------- | --------------------------------------- |
+| `🎯 Target: Position #21`                | Current conversation being processed    |
+| `Name: "John Doe..."`                    | Conversation name (trimmed to 30 chars) |
+| `Progress: 5/26 deleted \| 21 remaining` | Detailed progress counter               |
+| `⏳ Opening menu...`                     | Clicking "More" button                  |
+| `📋 Found 4 menu items`                  | Menu options detected                   |
+| `✓ Found delete option: "Delete chat"`   | Delete option located                   |
+| `⏳ Clicking delete...`                  | Initiating deletion                     |
+| `📋 Found 3 dialog buttons`              | Confirmation dialog buttons             |
+| `✓ Confirming deletion...`               | Clicking confirm button                 |
+| `✅ SUCCESS! Deleted 5/26`               | Successful deletion                     |
 
 ### Error Messages
 

@@ -75,6 +75,40 @@
     return;
   }
 
+  // User Confirmation
+  console.log("⚠️  CONFIRMATION REQUIRED");
+  console.log("");
+  console.log(
+    `   You are about to DELETE ${initialCount - keepNewest} conversations.`
+  );
+  console.log(`   This action is PERMANENT and CANNOT be undone!`);
+  console.log("");
+  console.log("─────────────────────────────────────────────────────────");
+  console.log("");
+
+  const userConfirmed = confirm(
+    `⚠️ CONFIRM DELETION\n\n` +
+      `You are about to permanently delete ${
+        initialCount - keepNewest
+      } conversations.\n\n` +
+      `• Total conversations: ${initialCount}\n` +
+      `• Will keep: ${keepNewest} newest\n` +
+      `• Will delete: ${initialCount - keepNewest} oldest\n\n` +
+      `This action CANNOT be undone!\n\n` +
+      `Click OK to proceed, or Cancel to abort.`
+  );
+
+  if (!userConfirmed) {
+    console.log("❌ Deletion cancelled by user.");
+    console.log("");
+    console.log("   No conversations were deleted.");
+    console.log("");
+    return;
+  }
+
+  console.log("✅ User confirmed. Proceeding with deletion...");
+  console.log("");
+
   console.log("🚀 Starting deletion process...");
   console.log("");
 
