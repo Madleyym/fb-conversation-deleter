@@ -30,6 +30,10 @@ logs/
 dist/
 build/
 
+# Internal documentation (not for public repo)
+PUSH-TO-GITHUB.md
+ENHANCEMENTS.md
+
 # Old/deprecated files
 *.old
 *.bak
