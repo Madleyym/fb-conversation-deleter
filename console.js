@@ -36,6 +36,16 @@
   const keepNewest = 20; // Keep 20 newest (change as needed)
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
+  // Emergency Stop Flag & Listener (Press Escape or set window.__STOP_FB_DELETER = true to cancel)
+  window.__STOP_FB_DELETER = false;
+  const onKeyDown = (e) => {
+    if (e.key === "Escape") {
+      console.warn("🛑 Emergency stop triggered via Escape key! Aborting after current step...");
+      window.__STOP_FB_DELETER = true;
+    }
+  };
+  window.addEventListener("keydown", onKeyDown);
+
   // Statistics
   let deleted = 0;
   let failed = 0;
@@ -113,6 +123,12 @@
   console.log("");
 
   while (true) {
+    if (window.__STOP_FB_DELETER) {
+      console.log("");
+      console.log("🛑 Deletion gracefully stopped by user via Emergency Stop.");
+      break;
+    }
+
     // Find conversations in sidebar
     const rows = document.querySelectorAll('[role="row"]');
     const sidebarRows = Array.from(rows).filter((r) => {
@@ -259,5 +275,8 @@
     await wait(500);
   }
 
-  console.log(`🎉 FINAL: Deleted ${deleted} conversations, kept 20 newest!`);
+  // Cleanup event listener
+  window.removeEventListener("keydown", onKeyDown);
+
+  console.log(`🎉 FINAL: Deleted ${deleted} conversations, kept ${keepNewest} newest!`);
 })();

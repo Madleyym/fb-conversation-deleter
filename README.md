@@ -21,6 +21,7 @@ A lightweight, browser console-based script that helps you efficiently clean up 
 - ✅ **Safe & Controlled** - Clear visibility of what's being deleted
 - ✅ **No Installation** - Runs directly in browser console
 - ✅ **Customizable** - Easily adjust how many conversations to keep
+- ✅ **Emergency Stop** - Press `Escape` key or set `window.__STOP_FB_DELETER = true` in console to abort safely
 
 ---
 
